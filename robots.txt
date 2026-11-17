@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /output.html
+Disallow: /remote.html
+
+Sitemap: https://vesperpresent.github.io/sitemap.xml
