@@ -2,8 +2,17 @@ const VESPA = {
   origin: "https://kaidaz18.duckdns.org",
   slug: "vesper-presentation-software",
   key: "pk_live_LDtiPPPsRE1psDbDSJJAmbT6",
-  logo: "assets/img/logo.svg"
+  logo: "assets/img/logo.svg",
+  googleClientId: ""
 };
+
+const GOOGLE_G = '<svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="m6.3 14.7 6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>';
+
+const REEL = `<div class="reel" aria-hidden="true"><div class="reel-s"><span>Amazing grace, how sweet the sound<br>that saved a wretch like me</span></div><div class="reel-s"><span>For God so loved the world<small>John 3:16</small></span></div><div class="reel-s"><span>My chains are gone,<br>I've been set free</span></div><div class="reel-s"><span>Welcome home<small>We're glad you're here</small></span></div></div>`;
+
+function authShell(inner) {
+  return `<div class="auth"><div class="auth-main"><a href="./" class="auth-brand"><img src="${VESPA.logo}" alt="Vespa logo" width="30" height="30"><span>Vespa</span></a><div class="auth-form">${inner}</div><p class="auth-foot">Free church presentation software</p></div><aside class="auth-art" aria-hidden="true"><div class="auth-art-in">${REEL}<blockquote>Built for the volunteer at the back of the room.</blockquote><p>Songs, sermons, scripture, images and video on the big screen. Free for every church.</p></div></aside></div>`;
+}
 
 const bread = typeof BreadClient !== "undefined" ? new BreadClient({ baseUrl: VESPA.origin, projectSlug: VESPA.slug, apiKey: VESPA.key }) : null;
 
@@ -338,21 +347,21 @@ const AuthUI = {
     const view = () => {
       const heads = { signin: ["Welcome back", "Sign in to continue to " + title], signup: ["Create your free account", "Free for every church. No card, no catch."], forgot: ["Reset your password", "We will email you a secure link."], mfa: ["Two-step verification", "Enter the 6-digit code from your authenticator app."] };
       const [hd, sb] = heads[mode];
-      root.innerHTML = `<div class="auth-wrap"><div class="auth-card">
-        <a href="./" class="auth-logo"><img src="${VESPA.logo}" alt="Vespa logo" width="44" height="44"></a>
-        <h1>${hd}</h1><p class="muted">${sb}</p>
-        ${mode === "signin" || mode === "signup" ? `<div class="g-slot"><div id="g-btn"></div></div><div class="divider g-div" hidden><span>or</span></div>` : ""}
+      const gate = mode === "signin" || mode === "signup";
+      root.innerHTML = authShell(`
+        <h1>${hd}</h1><p class="muted auth-sub">${sb}</p>
+        ${gate ? `<div class="g-slot"><button type="button" class="btn g-btn lg" id="g-fallback">${GOOGLE_G}<span>Continue with Google</span></button><div id="g-btn"></div></div><div class="divider"><span>or use email</span></div>` : ""}
         <form class="stack" novalidate>
-          ${mode === "mfa" ? `<input class="input code" name="code" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="000000" required>` : `<label class="field"><span>Email</span><input class="input" type="email" name="email" autocomplete="email" required></label>`}
-          ${mode === "signin" || mode === "signup" ? `<label class="field"><span>Password</span><input class="input" type="password" name="password" minlength="8" maxlength="72" autocomplete="${mode === "signup" ? "new-password" : "current-password"}" required></label>` : ""}
+          ${mode === "mfa" ? `<input class="input code" name="code" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="000000" required>` : `<label class="field"><span>Email</span><input class="input" type="email" name="email" autocomplete="email" placeholder="you@church.org" required></label>`}
+          ${gate ? `<label class="field"><span class="row between">Password${mode === "signin" ? `<a href="#" data-m="forgot" class="field-link">Forgot?</a>` : ""}</span><input class="input" type="password" name="password" minlength="8" maxlength="72" autocomplete="${mode === "signup" ? "new-password" : "current-password"}" placeholder="${mode === "signup" ? "At least 8 characters" : ""}" required></label>` : ""}
           <div class="form-err" hidden></div>
-          <button class="btn primary lg" type="submit">${{ signin: "Sign in", signup: "Create account", forgot: "Send reset link", mfa: "Verify" }[mode]}</button>
+          <button class="btn primary lg" type="submit">${{ signin: "Sign in", signup: "Create free account", forgot: "Send reset link", mfa: "Verify" }[mode]}</button>
         </form>
         <div class="auth-links">
-          ${mode === "signin" ? `<a href="#" data-m="forgot">Forgot password?</a><span>New here? <a href="#" data-m="signup">Create an account</a></span>` : ""}
-          ${mode === "signup" ? `<span>Already have an account? <a href="#" data-m="signin">Sign in</a></span>` : ""}
+          ${mode === "signin" ? `<span>New to Vespa? <a href="#" data-m="signup">Create an account</a></span>` : ""}
+          ${mode === "signup" ? `<span>Already have an account? <a href="#" data-m="signin">Sign in</a></span><span class="hint">You will verify your email before your first service.</span>` : ""}
           ${mode === "forgot" || mode === "mfa" ? `<a href="#" data-m="signin">Back to sign in</a>` : ""}
-        </div></div></div>`;
+        </div>`);
       $$("[data-m]", root).forEach(a => a.onclick = e => { e.preventDefault(); mode = a.dataset.m; view(); });
       const form = $("form", root), err = $(".form-err", root), btn = $("button[type=submit]", root);
       const showErr = m => { err.textContent = m; err.hidden = !m; };
@@ -382,33 +391,35 @@ const AuthUI = {
     view();
   },
   async google(root, done, showErr) {
-    const pv = await Auth.providers();
-    const g = pv && pv.google;
-    const cid = g && g.enabled && g.clientIds && g.clientIds[0];
-    if (!cid) return;
-    try { if (!window.google || !google.accounts) await loadScript("https://accounts.google.com/gsi/client"); } catch (e) { return; }
-    const slot = $("#g-btn", root); if (!slot) return;
+    const fb = $("#g-fallback", root);
+    let cid = VESPA.googleClientId;
+    if (!cid) { const pv = await Auth.providers(); const g = pv && pv.google; cid = g && g.enabled && g.clientIds && g.clientIds[0]; }
+    if (!cid) { if (fb) fb.onclick = () => showErr("Google sign-in is not switched on yet. Please use email for now."); return; }
+    try { if (!window.google || !google.accounts) await loadScript("https://accounts.google.com/gsi/client"); }
+    catch (e) { if (fb) fb.onclick = () => showErr("Could not load Google sign-in. Check your connection or use email."); return; }
+    const slot = $("#g-btn", root); if (!slot || !slot.isConnected) return;
+    const nonce = uid() + uid();
     google.accounts.id.initialize({
-      client_id: cid,
+      client_id: cid, nonce, auto_select: false, cancel_on_tap_outside: true, use_fedcm_for_prompt: true,
       callback: async resp => {
-        try { done(await bread.auth.signInWithGoogle(resp.credential)); }
+        try { done(await bread.auth.signInWithGoogle(resp.credential, { nonce })); }
         catch (e) { showErr(errMsg(e)); }
       }
     });
-    google.accounts.id.renderButton(slot, { theme: Theme.effective() === "dark" ? "filled_black" : "outline", size: "large", shape: "pill", text: "continue_with", width: 320 });
-    const d = $(".g-div", root); if (d) d.hidden = false;
+    google.accounts.id.renderButton(slot, { theme: Theme.effective() === "dark" ? "filled_black" : "outline", size: "large", shape: "pill", text: "continue_with", logo_alignment: "center", width: Math.min(400, slot.parentElement.clientWidth || 360) });
+    if (fb) fb.hidden = true;
+    try { google.accounts.id.prompt(); } catch (e) {}
   },
   verify(root, user, { onVerified, onSignOut }) {
-    root.innerHTML = `<div class="auth-wrap"><div class="auth-card">
+    root.innerHTML = authShell(`
       <div class="auth-badge">${icon("mail")}</div>
-      <h1>Verify your email</h1>
-      <p class="muted">We sent a link to <b>${esc(user.email)}</b>. Open it to activate your account, then come back here.</p>
+      <h1>Check your inbox</h1>
+      <p class="muted auth-sub">We sent a verification link to <b>${esc(user.email)}</b>. Open it to activate your account, then come back here.</p>
       <div class="stack">
-        <button class="btn primary lg" data-a="check">I have verified</button>
-        <button class="btn ghost" data-a="resend">Resend email</button>
+        <button class="btn primary lg" data-a="check">I have verified my email</button>
+        <button class="btn lg" data-a="resend">Send the email again</button>
       </div>
-      <div class="auth-links"><a href="#" data-a="out">Use a different account</a></div>
-    </div></div>`;
+      <div class="auth-links"><a href="#" data-a="out">Use a different account</a></div>`);
     $("[data-a=check]", root).onclick = async e => {
       const b = e.currentTarget; b.classList.add("busy");
       try { const { user: u } = await bread.auth.me(); if (u.isVerified) onVerified(u); else toast("Not verified yet. Check your inbox and spam folder."); }
@@ -421,7 +432,7 @@ const AuthUI = {
 };
 
 async function requireUser(root, onReady) {
-  if (!bread) { root.innerHTML = `<div class="auth-wrap"><div class="auth-card"><h1>Can't connect</h1><p class="muted">Vespa could not reach its server. Check your internet connection and reload.</p><button class="btn primary lg" onclick="location.reload()">Reload</button></div></div>`; return; }
+  if (!bread) { root.innerHTML = authShell(`<h1>Can't connect</h1><p class="muted auth-sub">Vespa could not reach its server. Check your internet connection and reload.</p><button class="btn primary lg" onclick="location.reload()">Reload</button>`); return; }
   const start = async u => {
     if (!u) return AuthUI.mount(root, { onDone: start });
     if (!u.isVerified) return AuthUI.verify(root, u, { onVerified: start, onSignOut: () => start(null) });
