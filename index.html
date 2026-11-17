@@ -24,7 +24,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap">
 <link rel="stylesheet" href="assets/css/vespa.css">
 <link rel="stylesheet" href="assets/css/site.css">
 <script type="application/ld+json">
@@ -42,7 +42,7 @@
       "description": "Free church presentation software for song lyrics, sermons, Bible verses, images and video, with a separate audience screen, stage display and phone remote.",
       "image": "https://vesperpresent.github.io/assets/img/logo.svg",
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-      "featureList": "Song lyrics, Sermon slides, Bible verse lookup, Images, Video playback, Audience output window, Stage display, Countdown timer, On-screen messages, Phone remote, Light and dark mode"
+      "featureList": "Sign in with Google, Song lyrics, Sermon slides, Bible verse lookup, Images, Video playback, Audience output window, Stage display, Countdown timer, On-screen messages, Phone remote, Light and dark mode"
     },
     {
       "@type": "Organization",
@@ -66,9 +66,9 @@
 </head>
 <body class="site">
 <header class="nav">
-  <div class="wrap">
-    <a class="logo-link" href="./"><img src="assets/img/logo.svg" alt="Vespa logo" width="30" height="30">Vespa</a>
-    <nav class="nav-links" aria-label="Main"><a href="#features">Features</a><a href="#screens">Two windows</a><a href="#remote">Phone remote</a><a href="#faq">FAQ</a></nav>
+  <div class="nav-in">
+    <a class="logo-link" href="./"><img src="assets/img/logo.svg" alt="Vespa logo" width="28" height="28">Vespa</a>
+    <nav class="nav-links" aria-label="Main"><a href="#how">How it works</a><a href="#features">Features</a><a href="#remote">Remote</a><a href="#faq">FAQ</a></nav>
     <div class="nav-cta">
       <button class="icon-btn" id="themeBtn" aria-label="Toggle light and dark mode"></button>
       <a class="btn ghost" href="app.html" id="signInLink">Sign in</a>
@@ -78,121 +78,158 @@
 </header>
 
 <main>
-  <section class="hero wrap">
-    <span class="pill"><b>Free</b> for every church, forever</span>
-    <h1>Church presentation, <span>beautifully simple.</span></h1>
-    <p class="lead">Vespa puts lyrics, sermons, scripture, images and video on the big screen. A calm control window for you, a clean presentation window for your congregation.</p>
-    <div class="ctas"><a class="btn primary lg" href="app.html?signup=1">Create your free account</a><a class="btn lg" href="#features">See what it does</a></div>
-    <p class="note">Runs in your browser. Nothing to install.</p>
-
-    <div class="mock" aria-hidden="true">
-      <div class="mock-bar"><i></i><i></i><i></i><span>Vespa Studio</span></div>
-      <div class="mock-body">
-        <div class="mock-side">
-          <div class="mock-row"><i></i><b>Welcome loop</b></div>
-          <div class="mock-row sel"><i></i><b>Amazing Grace</b></div>
-          <div class="mock-row"><i></i><b>Romans 8:28</b></div>
-          <div class="mock-row"><i></i><b>Hope That Holds</b></div>
-          <div class="mock-row"><i></i><b>Announcements</b></div>
-        </div>
-        <div class="mock-grid">
-          <div class="ms g1">Amazing grace how sweet the sound</div>
-          <div class="ms g1 live">That saved a wretch like me</div>
-          <div class="ms g1">I once was lost but now am found</div>
-          <div class="ms g1">Was blind but now I see</div>
-          <div class="ms g1">'Twas grace that taught my heart to fear</div>
-          <div class="ms g1">And grace my fears relieved</div>
-        </div>
-        <div class="mock-live">
-          <span class="lbl">ON SCREEN</span>
-          <div class="ms g1">That saved a wretch like me</div>
-          <div class="mock-btns"><i></i><i></i><i></i><i></i></div>
-          <span class="lbl">UP NEXT</span>
-          <div class="ms g1" style="opacity:.7">I once was lost but now am found</div>
-        </div>
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="wrap">
+      <span class="pill"><b>FREE</b>For every church, forever</span>
+      <h1>Worship, <em>beautifully</em><br>presented.</h1>
+      <p class="lead">Vespa puts lyrics, sermons, scripture, images and video on the big screen. A calm control window for your team, a flawless presentation window for your church.</p>
+      <div class="ctas">
+        <a class="btn primary lg" href="app.html?signup=1">Start free</a>
+        <a class="btn lg" href="app.html?signup=1" id="heroGoogle"><span data-g></span>Continue with Google</a>
       </div>
+      <p class="note">Runs in your browser. Nothing to install. No card needed.</p>
+
+      <div class="showcase">
+        <div class="screen">
+          <div class="reel" aria-hidden="true"><div class="reel-s"><span>Amazing grace, how sweet the sound<br>that saved a wretch like me</span></div><div class="reel-s"><span>For God so loved the world<small>John 3:16 · WEB</small></span></div><div class="reel-s"><span>My chains are gone,<br>I've been set free</span></div><div class="reel-s"><span>Welcome home<small>We're glad you're here</small></span></div></div>
+        </div>
+        <div class="float f3" aria-hidden="true"><span class="dot"></span>Live on screen</div>
+        <div class="float f1" aria-hidden="true"><div class="k">Up next</div><b>Chorus</b><span>My chains are gone, I've been set free</span></div>
+        <div class="float f2" aria-hidden="true"><div class="k">Phone remote</div><span style="font-weight:600">Amazing Grace · 2 / 6</span><div class="pbtns"><i>Back</i><i>Next</i></div></div>
+      </div>
+
+      <div class="types-row reveal">
+        <span><i data-i="song"></i>Songs</span><span><i data-i="sermon"></i>Sermons</span><span><i data-i="scripture"></i>Scripture</span><span><i data-i="image"></i>Images</span><span><i data-i="video"></i>Video</span><span><i data-i="stage"></i>Stage display</span><span><i data-i="phone"></i>Phone remote</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap" id="how">
+    <div class="head reveal"><span class="kicker">How it works</span><h2>Ready for Sunday in <em>three</em> steps.</h2><p>Designed so a first-time volunteer can run the whole service without training.</p></div>
+    <div class="steps">
+      <article class="step reveal"><h3>Build your service</h3><p>Add songs, sermon points, verses, pictures and videos. Drag them into the order you need.</p></article>
+      <article class="step reveal"><h3>Click Present</h3><p>A separate presentation window opens on your projector or TV. Your control window stays with you.</p></article>
+      <article class="step reveal"><h3>Run it from anywhere</h3><p>Use the keyboard, a clicker or your phone. Black the screen or show your logo in one tap.</p></article>
     </div>
   </section>
 
   <section class="section wrap" id="features">
-    <div class="section-head"><span class="eyebrow">Everything Sunday needs</span><h2>Powerful, without the learning curve.</h2><p>Every tool a worship team needs, designed so a first-time volunteer can run the service.</p></div>
-    <div class="features">
-      <article class="feat"><div class="fi"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div><h3>Song lyrics</h3><p>Paste lyrics and Vespa splits them into slides. Label verses and choruses with a single line.</p></article>
-      <article class="feat"><div class="fi"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 17v5"/></svg></div><h3>Sermons</h3><p>Build sermon points and drop in verses as you write. Your speaker sees what is next on the stage display.</p></article>
-      <article class="feat"><div class="fi"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg></div><h3>Scripture lookup</h3><p>Type John 3:16-18 and get finished slides with references, in several public domain translations.</p></article>
-      <article class="feat"><div class="fi"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg></div><h3>Images</h3><p>Show a single picture or a slideshow. Fit the whole image or fill the screen.</p></article>
-      <article class="feat"><div class="fi"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="14" height="14" rx="2"/><path d="m16 10 6-3v10l-6-3z"/></svg></div><h3>Video</h3><p>Play announcement videos and countdowns with sound, or loop motion backgrounds behind your lyrics.</p></article>
-      <article class="feat"><div class="fi"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/></svg></div><h3>Timers and messages</h3><p>Countdown timers for the stage and quick on-screen messages like "Parking lot B is full".</p></article>
+    <div class="head reveal"><span class="kicker">Features</span><h2>Every tool you need. <em>None</em> of the clutter.</h2><p>The power of professional worship software, arranged so nobody gets lost.</p></div>
+    <div class="bento">
+      <article class="cell w4 reveal">
+        <div class="ic"><i data-i="scripture"></i></div><h3>Scripture in seconds</h3><p>Type a reference and Vespa builds finished slides with verse references, in several public domain translations.</p>
+        <div class="art verse"><div class="q">John 3:16-17<i></i></div><div class="mini">For God so loved the world, that he gave his one and only Son<small>John 3:16 · WEB</small></div></div>
+      </article>
+      <article class="cell reveal">
+        <div class="ic"><i data-i="video"></i></div><h3>Video that just plays</h3><p>Announcements and countdowns with sound, or looping motion behind lyrics.</p>
+        <div class="art"><div class="mini sea">Service starts in 4:59</div></div>
+      </article>
+      <article class="cell w3 reveal">
+        <div class="ic"><i data-i="song"></i></div><h3>Lyrics without the busywork</h3><p>Paste a song and it splits into slides. Name sections like Chorus with one line.</p>
+        <div class="art lyr"><pre><b>[Verse 1]</b>
+Amazing grace how sweet the sound
+That saved a wretch like me
+
+<b>[Chorus]</b>
+My chains are gone</pre><div class="stackm"><div class="mini">Amazing grace how sweet the sound</div><div class="mini">My chains are gone</div></div></div>
+      </article>
+      <article class="cell w3 reveal">
+        <div class="ic"><i data-i="stage"></i></div><h3>A stage display for your speaker</h3><p>Current slide, what is next, the time and a countdown, on any extra screen.</p>
+        <div class="art stagep"><div class="top"><b>10:42</b><span>Hope That Holds</span><em>12:00</em></div><div class="now">Hope does not put us to shame</div><div class="nx">Next · Romans 5:5</div></div>
+      </article>
+      <article class="cell reveal">
+        <div class="ic"><i data-i="image"></i></div><h3>Images</h3><p>One picture or a slideshow, fitted or filling the screen.</p>
+        <div class="art"><div class="mini paper">Welcome home</div></div>
+      </article>
+      <article class="cell reveal">
+        <div class="ic"><i data-i="sermon"></i></div><h3>Sermons</h3><p>Write your points and drop verses in as you go. Six polished looks included.</p>
+        <div class="art"><div class="mini ink">1. Hope is a person<small>Hope That Holds</small></div></div>
+      </article>
+      <article class="cell reveal">
+        <div class="ic"><i data-i="timer"></i></div><h3>Timers and messages</h3><p>Count down to the start, or pop up a note for the room.</p>
+        <div class="art"><div class="timer">4:59</div><span class="msgp">Parking lot B is full</span></div>
+      </article>
     </div>
   </section>
 
-  <section class="section wrap" id="screens">
+  <section class="section wrap">
     <div class="split">
-      <div>
-        <span class="eyebrow">Two windows</span>
-        <h2>One window for you. One for the room.</h2>
-        <p>The control window keeps your service, slides and live preview in one calm place. Click Present and a separate presentation window opens on your projector or TV.</p>
+      <div class="reveal">
+        <span class="kicker">Two windows</span>
+        <h2>One window for you. <em>One</em> for the room.</h2>
+        <p class="body">Your control window holds the service, slides and a live preview. The presentation window shows only what your church should see, with smooth fades and nothing else.</p>
         <ul class="checks">
-          <li><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Opens on your second screen automatically in Chrome and Edge</li>
-          <li><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Stage display with the current slide, next slide, clock and timer</li>
-          <li><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>One-tap Black, Logo, Hide text and Clear for those unexpected moments</li>
-          <li><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Smooth fades, keyboard shortcuts and presentation clicker support</li>
+          <li><i data-i="check"></i>Opens on your second screen automatically in Chrome and Edge</li>
+          <li><i data-i="check"></i>Black, Logo, Hide text and Clear for unexpected moments</li>
+          <li><i data-i="check"></i>Arrow keys, space bar and presentation clickers just work</li>
+          <li><i data-i="check"></i>Light and dark mode for bright rooms and dim booths</li>
         </ul>
       </div>
-      <div class="windows" aria-hidden="true">
-        <div class="win b"><div class="mock-bar"><i></i><i></i><i></i></div><div class="ms g2">THAT SAVED A WRETCH LIKE ME</div></div>
-        <div class="win a"><div class="mock-bar"><i></i><i></i><i></i><span>Control</span></div><div class="mini"><div class="ms g2"></div><div class="ms g2 live"></div><div class="ms g2"></div><div class="ms g4"></div><div class="ms g3"></div><div class="ms g1"></div></div></div>
+      <div class="duo reveal" aria-hidden="true">
+        <div class="win out"><div class="bar"><i></i><i></i><i></i><span style="color:#666">Presentation</span></div><div class="mini">That saved a wretch like me</div></div>
+        <div class="win ctl"><div class="bar"><i></i><i></i><i></i><span>Vespa Studio</span></div><div class="body"><div class="sb"><i></i><i class="on"></i><i></i><i></i><i></i></div><div class="gr"><div class="mini">Amazing grace</div><div class="mini live">That saved a wretch</div><div class="mini">I once was lost</div><div class="mini">Was blind</div><div class="mini">My chains are gone</div><div class="mini">Set free</div></div></div></div>
       </div>
     </div>
   </section>
 
   <section class="section wrap" id="remote">
-    <div class="split">
-      <div class="phone" aria-hidden="true">
-        <div class="scr"><small>Amazing Grace · 2 / 6</small>That saved a wretch like me</div>
-        <div class="pb"><i></i><i></i></div>
-        <div class="pl"><i></i><i></i><i></i></div>
+    <div class="split rev">
+      <div class="reveal" aria-hidden="true">
+        <div class="phone"><div class="phone-in">
+          <div class="scr"><small><span>Amazing Grace</span><span>2 / 6</span></small>That saved a wretch like me</div>
+          <div class="pb"><i>Back</i><i>Next</i></div>
+          <div class="cg"><i></i><i></i><i></i><i></i></div>
+          <div class="pl"><i></i><i class="on"></i><i></i></div>
+        </div></div>
       </div>
-      <div>
-        <span class="eyebrow">Phone remote</span>
-        <h2>Run the service from your pocket.</h2>
-        <p>Scan a QR code and your phone becomes a remote. Move slides from the stage, jump to any song, or black the screen in a tap. Swipe to go next.</p>
+      <div class="reveal">
+        <span class="kicker">Phone remote</span>
+        <h2>Run the service from your <em>pocket.</em></h2>
+        <p class="body">Scan a QR code and your phone becomes the remote. Move slides from the stage, jump to any song, or black the screen in a tap. Swipe to go next.</p>
         <ul class="checks">
-          <li><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Works on any phone with a browser</li>
-          <li><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Secured by your account, so only your team can control it</li>
-          <li><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Keeps your phone screen awake while you present</li>
+          <li><i data-i="check"></i>Any phone with a browser, no app store</li>
+          <li><i data-i="check"></i>Protected by your account, so only your team is in control</li>
+          <li><i data-i="check"></i>Keeps your phone awake while you present</li>
         </ul>
       </div>
     </div>
   </section>
 
   <section class="section wrap">
-    <div class="free">
-      <span class="eyebrow">Free for churches</span>
-      <h2>No subscriptions. No watermarks.</h2>
+    <div class="free reveal">
+      <span class="kicker">Free for churches</span>
+      <h2>No subscriptions. <em>No watermarks.</em> Ever.</h2>
       <p>Vespa is built to be completely free for churches of every size. Sign up with Google or email and you are ready for Sunday.</p>
-      <a class="btn primary lg" href="app.html?signup=1">Get started free</a>
+      <div class="ctas"><a class="btn light lg" href="app.html?signup=1">Create your free account</a><a class="btn glass lg" href="app.html?signup=1"><span data-g></span>Continue with Google</a></div>
     </div>
   </section>
 
   <section class="section wrap" id="faq">
-    <div class="section-head"><span class="eyebrow">Questions</span><h2>Frequently asked</h2></div>
-    <div class="faq">
-      <details><summary>Is Vespa really free?</summary><p>Yes. Vespa is free for every church. There are no paid tiers, no watermarks and no credit card.</p></details>
-      <details><summary>Do I need to install anything?</summary><p>No. Vespa runs in a modern browser like Chrome or Edge. Open it on the computer connected to your projector or TV.</p></details>
-      <details><summary>How do I show slides on a projector or second screen?</summary><p>Click Present. Vespa opens a separate presentation window. In Chrome and Edge it can place itself on your second screen; otherwise drag it there and double-click for full screen.</p></details>
-      <details><summary>Can I control Vespa from my phone?</summary><p>Yes. Scan the QR code in Vespa and sign in with the same account. Your phone becomes a remote with next, back, black and logo buttons.</p></details>
-      <details><summary>Does Vespa include Bible verses?</summary><p>Yes. Type a reference like John 3:16-18 and Vespa builds the slides for you in several public domain translations, including the World English Bible and King James Version.</p></details>
-      <details><summary>Is my account secure?</summary><p>Every account verifies its email address, and you can turn on two-step verification and sign out other devices from Settings.</p></details>
+    <div class="faq-grid">
+      <div class="head reveal"><span class="kicker">Questions</span><h2>Good <em>questions.</em></h2><p>Anything else? Open Vespa and look around. It is free.</p></div>
+      <div class="faq reveal">
+        <details><summary>Is Vespa really free?</summary><p>Yes. Vespa is free for every church. There are no paid tiers, no watermarks and no credit card.</p></details>
+        <details><summary>Do I need to install anything?</summary><p>No. Vespa runs in a modern browser like Chrome or Edge. Open it on the computer connected to your projector or TV.</p></details>
+        <details><summary>How do I show slides on a projector or second screen?</summary><p>Click Present. Vespa opens a separate presentation window. In Chrome and Edge it can place itself on your second screen; otherwise drag it there and double-click for full screen.</p></details>
+        <details><summary>Can I control Vespa from my phone?</summary><p>Yes. Scan the QR code in Vespa and sign in with the same account. Your phone becomes a remote with next, back, black and logo buttons.</p></details>
+        <details><summary>Does Vespa include Bible verses?</summary><p>Yes. Type a reference like John 3:16-18 and Vespa builds the slides for you in several public domain translations, including the World English Bible and King James Version.</p></details>
+        <details><summary>Can I sign in with Google?</summary><p>Yes. Choose Continue with Google on the sign-in page, or create an account with any email address.</p></details>
+        <details><summary>Is my account secure?</summary><p>Every account verifies its email address, and you can turn on two-step verification and sign out other devices from Settings.</p></details>
+      </div>
     </div>
   </section>
 </main>
 
 <footer class="foot">
   <div class="wrap">
-    <a class="logo-link" href="./"><img src="assets/img/logo.svg" alt="" width="24" height="24">Vespa</a>
-    <span>Free church presentation software. Made for the local church.</span>
-    <span><a href="app.html">Open Vespa</a></span>
+    <div class="foot-in">
+      <div><a class="logo-link" href="./"><img src="assets/img/logo.svg" alt="" width="28" height="28">Vespa</a><p class="tag">Free church presentation software, made for the local church.</p></div>
+      <div><h4>Product</h4><ul><li><a href="#features">Features</a></li><li><a href="#remote">Phone remote</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+      <div><h4>Get started</h4><ul><li><a href="app.html?signup=1">Create account</a></li><li><a href="app.html">Sign in</a></li><li><a href="remote.html">Open remote</a></li></ul></div>
+    </div>
+    <div class="foot-big" aria-hidden="true">Vespa</div>
+    <div class="foot-legal"><span>Free for every church.</span><span>vesperpresent.github.io</span></div>
   </div>
 </footer>
 <script>
@@ -201,13 +238,30 @@
   const get = () => { try { return localStorage.getItem(k) || "system"; } catch (e) { return "system"; } };
   const eff = () => { const t = get(); return t === "system" ? (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") : t; };
   const apply = t => { if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t); else document.documentElement.removeAttribute("data-theme"); };
-  const sun = '<svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
-  const moon = '<svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>';
+  const sv = p => '<svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + p + "</svg>";
+  const I = {
+    sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+    moon: '<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>',
+    song: '<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>',
+    sermon: '<rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 17v5"/>',
+    scripture: '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/>',
+    image: '<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/>',
+    video: '<rect x="2" y="5" width="14" height="14" rx="2"/><path d="m16 10 6-3v10l-6-3z"/>',
+    stage: '<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M7 20h10M8 8h8M8 12h5"/>',
+    phone: '<rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 18h2"/>',
+    timer: '<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/>',
+    check: '<path d="M20 6 9 17l-5-5"/>'
+  };
+  document.querySelectorAll("[data-i]").forEach(el => el.outerHTML = sv(I[el.dataset.i] || ""));
+  const G = '<svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="m6.3 14.7 6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>';
+  document.querySelectorAll("[data-g]").forEach(el => el.outerHTML = G);
   const btn = document.getElementById("themeBtn");
-  const draw = () => btn.innerHTML = eff() === "dark" ? sun : moon;
+  const draw = () => btn.innerHTML = sv(eff() === "dark" ? I.sun : I.moon);
   apply(get()); draw();
   btn.onclick = () => { const n = eff() === "dark" ? "light" : "dark"; try { localStorage.setItem(k, n); } catch (e) {} apply(n); draw(); };
   try { if (localStorage.getItem("bread_auth_vesper-presentation-software")) { document.getElementById("signInLink").hidden = true; const s = document.getElementById("startLink"); s.textContent = "Open Vespa"; s.href = "app.html"; } } catch (e) {}
+  const io = "IntersectionObserver" in window ? new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { rootMargin: "0px 0px -8% 0px" }) : null;
+  document.querySelectorAll(".reveal").forEach((el, i) => { if (io) { el.style.transitionDelay = (i % 3) * 70 + "ms"; io.observe(el); } else el.classList.add("in"); });
 })();
 </script>
 </body>

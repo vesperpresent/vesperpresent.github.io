@@ -1,8 +1,8 @@
 :root {
-  --bg: #f6f6f8;
+  --bg: #f6f5f2;
   --panel: #ffffff;
-  --panel-2: #f1f1f4;
-  --panel-3: #e8e8ed;
+  --panel-2: #f0efeb;
+  --panel-3: #e5e3de;
   --line: rgba(17, 17, 26, .08);
   --line-2: rgba(17, 17, 26, .14);
   --text: #15151b;
@@ -20,6 +20,9 @@
   --r: 12px;
   --r-sm: 8px;
   --font: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --glow: #f4a259;
+  --dusk: linear-gradient(160deg, #0f0b24 0%, #2a1a52 48%, #6b3a6e 82%, #c8664f 120%);
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
@@ -126,16 +129,46 @@ input[type=range] { accent-color: var(--accent); width: 100%; }
 .auth-wrap { min-height: 100vh; display: grid; place-items: center; padding: 24px 16px; background: radial-gradient(900px 500px at 50% -10%, var(--accent-soft), transparent 70%), var(--bg); }
 .auth-card { width: min(400px, 100%); background: var(--panel); border: 1px solid var(--line); border-radius: 20px; padding: 36px 32px 28px; box-shadow: var(--shadow); text-align: center; }
 .auth-card h1 { font-size: 22px; font-weight: 700; margin: 18px 0 6px; }
-.auth-card > .muted { margin-bottom: 22px; }
-.auth-card form, .auth-card .stack { text-align: left; }
-.auth-logo img { border-radius: 12px; display: block; margin: 0 auto; }
-.auth-badge { width: 52px; height: 52px; border-radius: 16px; display: grid; place-items: center; margin: 0 auto; background: var(--accent-soft); color: var(--accent); }
+
+.auth { min-height: 100vh; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); background: var(--bg); }
+.auth-main { display: flex; flex-direction: column; padding: 28px clamp(16px, 5vw, 64px); min-height: 100vh; }
+.auth-brand { display: inline-flex; align-items: center; gap: 10px; color: var(--text); font-weight: 650; font-size: 16px; align-self: flex-start; }
+.auth-brand:hover { text-decoration: none; }
+.auth-brand img { border-radius: 9px; }
+.auth-form { width: min(380px, 100%); margin: auto; padding: 48px 0; animation: rise .5s cubic-bezier(.2, .8, .2, 1); }
+@keyframes rise { from { opacity: 0; transform: translateY(10px); } }
+.auth-form h1 { font: 400 44px/1.05 var(--serif); letter-spacing: -.01em; margin-bottom: 10px; }
+.auth-sub { margin-bottom: 28px; font-size: 15px; }
+.auth-foot { font-size: 12.5px; color: var(--faint); }
+.auth-badge { width: 52px; height: 52px; border-radius: 16px; display: grid; place-items: center; margin-bottom: 22px; background: var(--accent-soft); color: var(--accent); }
 .auth-badge .i { width: 24px; height: 24px; }
-.auth-links { margin-top: 18px; display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: var(--muted); }
-.g-slot { display: flex; justify-content: center; min-height: 0; }
-.g-slot:empty, .g-slot > div:empty { display: none; }
-.divider { display: flex; align-items: center; gap: 12px; color: var(--faint); font-size: 12px; margin: 16px 0; }
+.auth-links { margin-top: 22px; display: flex; flex-direction: column; gap: 8px; font-size: 13.5px; color: var(--muted); }
+.field-link { font-weight: 500; font-size: 12.5px; }
+.g-slot { display: flex; flex-direction: column; align-items: stretch; }
+.g-slot #g-btn { display: flex; justify-content: center; }
+.g-slot #g-btn:empty { display: none; }
+.g-btn { width: 100%; border-radius: 99px; font-weight: 550; gap: 12px; background: var(--panel); }
+.divider { display: flex; align-items: center; gap: 12px; color: var(--faint); font-size: 12px; margin: 22px 0; }
 .divider::before, .divider::after { content: ""; flex: 1; height: 1px; background: var(--line-2); }
+.auth-art { position: relative; margin: 12px 12px 12px 0; border-radius: 28px; overflow: hidden; background: var(--dusk); color: #fff; display: flex; align-items: flex-end; }
+.auth-art::before { content: ""; position: absolute; inset: 0; background: radial-gradient(500px 300px at 80% 110%, rgba(244, 162, 89, .45), transparent 70%), radial-gradient(400px 300px at 10% 0%, rgba(125, 112, 255, .35), transparent 70%); }
+.auth-art-in { position: relative; padding: clamp(28px, 4vw, 56px); width: 100%; }
+.auth-art .reel { box-shadow: 0 40px 80px rgba(0, 0, 0, .45), 0 0 0 1px rgba(255, 255, 255, .08); margin-bottom: 40px; }
+.auth-art blockquote { margin: 0 0 12px; font: 400 clamp(26px, 2.6vw, 36px)/1.15 var(--serif); max-width: 520px; }
+.auth-art p { color: rgba(255, 255, 255, .7); max-width: 440px; }
+
+.reel { position: relative; aspect-ratio: 16 / 9; border-radius: 16px; overflow: hidden; background: #07060c; isolation: isolate; }
+.reel::before { content: ""; position: absolute; inset: -30%; background: radial-gradient(40% 50% at 30% 40%, rgba(125, 112, 255, .55), transparent 70%), radial-gradient(35% 45% at 75% 65%, rgba(244, 162, 89, .45), transparent 70%), radial-gradient(30% 40% at 60% 20%, rgba(200, 80, 140, .35), transparent 70%); filter: blur(10px); animation: drift 18s ease-in-out infinite alternate; z-index: -1; }
+@keyframes drift { to { transform: translate(6%, -4%) rotate(8deg) scale(1.1); } }
+.reel-s { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; padding: 8%; opacity: 0; animation: reel 16s infinite; }
+.reel-s span { font: 600 clamp(15px, 2.2vw, 30px)/1.25 var(--font); letter-spacing: -.01em; text-shadow: 0 4px 24px rgba(0, 0, 0, .5); color: #fff; }
+.reel-s small { display: block; font-size: .55em; font-weight: 500; opacity: .75; margin-top: .6em; letter-spacing: .04em; }
+.reel-s:nth-child(2) { animation-delay: 4s; }
+.reel-s:nth-child(3) { animation-delay: 8s; }
+.reel-s:nth-child(4) { animation-delay: 12s; }
+@keyframes reel { 0% { opacity: 0; transform: translateY(6px); } 4%, 22% { opacity: 1; transform: none; } 27%, 100% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .reel::before { animation: none; } .reel-s { animation: none; } .reel-s:first-child { opacity: 1; } }
+@media (max-width: 900px) { .auth { grid-template-columns: 1fr; } .auth-art { display: none; } }
 
 .vs-fit { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; background: #000; border-radius: inherit; }
 .vs-stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; overflow: hidden; background: #000; }
