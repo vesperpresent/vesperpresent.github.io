@@ -1,23 +1,23 @@
 (() => {
   let user, R, state = {}, tab = "slides", unsub;
-  requireUser($("#root"), u => { user = u; start(); });
+  requireUser($("#root"), "projector", u => { user = u; start(); });
 
   async function start() {
     R = bread.collection("remote");
     $("#root").innerHTML = `<div class="r">
-      <div class="r-top"><img src="${VESPA.logo}" alt="Vespa"><b>Remote</b><span class="r-stat" id="stat"><span class="dot"></span>Connecting</span><button class="icon-btn" id="th"></button></div>
+      <div class="topbar"><img src="${VESPA.logo}" alt="Vespa"><span class="name">Vespa</span><span class="where">Remote</span><span class="right"><span id="stat"></span> <button class="linkbtn" id="th"></button></span></div>
       <div class="now" id="now"></div>
-      <div class="nav"><button class="btn lg" id="pv">${icon("left")}Back</button><button class="btn primary lg" id="nx">Next${icon("right")}</button></div>
+      <div class="nav"><button class="btn" id="pv">&lt; Back</button><button class="btn primary" id="nx">Next &gt;</button></div>
       <div class="ctrls">
-        <button data-a="clearText">${icon("eyeoff")}Text</button>
-        <button data-a="logo">${icon("spark")}Logo</button>
-        <button data-a="black">${icon("square")}Black</button>
-        <button data-a="clearAll">${icon("eraser")}Clear</button>
+        <button class="btn" data-a="clearText">Hide text</button>
+        <button class="btn" data-a="logo">Logo</button>
+        <button class="btn" data-a="black">Black</button>
+        <button class="btn" data-a="clearAll">Clear all</button>
       </div>
-      <div class="seg tabs"><button data-t="slides">Slides</button><button data-t="service">Service</button></div>
+      <div class="seg tabs"><button data-t="slides">Slides</button><button data-t="service">Running order</button></div>
       <div class="list" id="list"></div>
     </div>`;
-    const th = () => $("#th").innerHTML = icon(Theme.effective() === "dark" ? "sun" : "moon");
+    const th = () => $("#th").textContent = Theme.effective() === "dark" ? "Light mode" : "Dark mode";
     th(); $("#th").onclick = () => { Theme.toggle(); th(); };
     $("#pv").onclick = () => send("prev");
     $("#nx").onclick = () => send("next");
@@ -47,12 +47,12 @@
   async function send(action, extra = {}) {
     if (navigator.vibrate) navigator.vibrate(12);
     try { await R.update(user.id, { command: { action, ...extra, nonce: uid(), at: Date.now(), from: "phone" } }); }
-    catch (e) { toast(e && e.status === 404 ? "Open Vespa on your computer first." : errMsg(e), "err"); }
+    catch (e) { toast(e && e.status === 404 ? "Open the projector page on the computer first." : errMsg(e), "err"); }
   }
 
   function drawStat() {
     const on = state.at && Date.now() - state.at < 75000;
-    $("#stat").innerHTML = `<span class="dot ${on ? "on" : ""}"></span>${on ? "Connected" : "Open Vespa on your computer"}`;
+    $("#stat").innerHTML = `<span class="dot ${on ? "on" : ""}"></span> ${on ? "Connected" : "Not connected"}`;
   }
 
   function draw() {
@@ -62,20 +62,20 @@
     $$("[data-t]").forEach(b => b.classList.toggle("on", b.dataset.t === tab));
     const s = state.slides && state.index >= 0 ? state.slides[state.index] : null;
     const isLive = state.liveId && state.liveId === state.presId;
-    $("#now").innerHTML = `<small><span>${esc(state.title || "Nothing selected")}</span><span>${isLive && s ? `${state.index + 1} / ${state.slides.length}` : ""}</span></small>
-      ${s && s.l ? `<div class="lb" style="margin-top:10px">${esc(s.l)}</div>` : ""}
-      <div class="tx">${isLive && s ? esc(s.t || "") : '<span class="muted" style="font-weight:500">Tap a slide below or press Next to go live.</span>'}</div>`;
+    $("#now").innerHTML = `<div class="row between"><b>${esc(state.title || "Nothing chosen")}</b><span>${isLive && s ? `Slide ${state.index + 1} of ${state.slides.length}` : ""}</span></div>
+      ${s && s.l ? `<div class="lb">[${esc(s.l)}]</div>` : ""}
+      <div class="tx">${isLive && s ? esc(s.t || "") : '<span class="muted" style="font-weight:normal">Tap a slide below or press Next.</span>'}</div>`;
     const L = $("#list");
     if (tab === "slides") {
       const sl = state.slides || [];
-      if (!sl.length) { L.innerHTML = `<div class="empty-r">No slides to show.</div>`; return; }
-      L.innerHTML = sl.map((x, i) => `<button class="li ${isLive && i === state.index ? "on" : ""}" data-i="${i}"><span class="n">${i + 1}</span><span class="t">${x.l ? `<small>${esc(x.l)}</small>` : ""}${esc(x.t || "Slide")}</span></button>`).join("");
-      $$(".li", L).forEach(b => b.onclick = () => send("goto", { presId: state.presId, index: +b.dataset.i }));
+      if (!sl.length) { L.innerHTML = `<p>No slides to show. Open the projector page on the computer.</p>`; return; }
+      L.innerHTML = `<table class="list">${sl.map((x, i) => `<tr class="${isLive && i === state.index ? "on" : ""}" data-i="${i}"><td class="n">${i + 1}</td><td>${x.l ? `<b>[${esc(x.l)}]</b> ` : ""}${esc(x.t || "Slide").replace(/\n/g, " / ")}</td></tr>`).join("")}</table>`;
+      $$("tr[data-i]", L).forEach(b => b.onclick = () => send("goto", { presId: state.presId, index: +b.dataset.i }));
     } else {
       const it = state.items || [];
-      if (!it.length) { L.innerHTML = `<div class="empty-r">This service has no items.</div>`; return; }
-      L.innerHTML = it.map((x, i) => `<button class="li ${x.id === state.liveId ? "on" : ""}" data-id="${esc(x.id)}"><span class="n">${i + 1}</span><span class="t"><small>${esc(x.type || "")}</small>${esc(x.title || "Untitled")}</span></button>`).join("");
-      $$(".li", L).forEach(b => b.onclick = () => { send("goto", { presId: b.dataset.id, index: 0 }); tab = "slides"; });
+      if (!it.length) { L.innerHTML = `<p>The running order is empty.</p>`; return; }
+      L.innerHTML = `<table class="list">${it.map((x, i) => `<tr class="${x.id === state.liveId ? "on" : ""}" data-id="${esc(x.id)}"><td class="n">${i + 1}</td><td>${esc(x.title || "Untitled")}</td></tr>`).join("")}</table>`;
+      $$("tr[data-id]", L).forEach(b => b.onclick = () => { send("goto", { presId: b.dataset.id, index: 0 }); tab = "slides"; });
     }
   }
 

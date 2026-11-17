@@ -2,48 +2,32 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Vespa Remote</title>
-<meta name="description" content="Control your Vespa church presentation from your phone.">
+<meta name="description" content="Control the Vespa projector from your phone.">
 <meta name="robots" content="noindex">
-<meta name="theme-color" content="#5b4cf0">
-<meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/img/logo.svg">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap">
 <link rel="stylesheet" href="assets/css/vespa.css">
 <style>
-body { min-height: 100vh; -webkit-tap-highlight-color: transparent; }
-.r { max-width: 520px; margin: 0 auto; padding: 14px 16px calc(24px + env(safe-area-inset-bottom)); }
-.r-top { display: flex; align-items: center; gap: 10px; padding: 4px 0 14px; }
-.r-top img { width: 28px; height: 28px; border-radius: 8px; }
-.r-top b { font-size: 15px; }
-.r-stat { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 6px; margin-left: auto; }
-.dot { width: 7px; height: 7px; border-radius: 50%; background: var(--faint); display: inline-block; }
-.dot.on { background: var(--ok); }
-.now { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 18px; min-height: 150px; box-shadow: var(--shadow); touch-action: pan-y; }
-.now small { color: var(--muted); font-size: 12px; display: flex; justify-content: space-between; }
-.now .tx { font-size: 20px; font-weight: 600; line-height: 1.35; margin-top: 10px; white-space: pre-line; }
-.now .lb { color: var(--live); font-weight: 700; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; }
-.nav { display: grid; grid-template-columns: 1fr 1.6fr; gap: 10px; margin: 12px 0; }
-.nav .btn { height: 72px; font-size: 16px; border-radius: 16px; }
-.nav .btn .i { width: 22px; height: 22px; }
-.ctrls { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-.ctrls button { height: 62px; border-radius: 14px; border: 1px solid var(--line); background: var(--panel); color: var(--muted); font: 500 12px var(--font); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
-.ctrls button.on { background: var(--live-soft); color: var(--live); border-color: transparent; }
-.tabs { margin: 18px 0 8px; }
-.tabs.seg { width: 100%; }
-.tabs.seg button { flex: 1; justify-content: center; height: 32px; }
-.list { display: flex; flex-direction: column; gap: 6px; }
-.li { display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; border-radius: 14px; background: var(--panel); border: 1px solid var(--line); text-align: left; color: var(--text); font: 14px/1.4 var(--font); width: 100%; }
-.li .n { color: var(--faint); font-variant-numeric: tabular-nums; min-width: 18px; font-size: 12px; padding-top: 2px; }
-.li .t { flex: 1; white-space: pre-line; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
-.li.on { border-color: var(--live); background: var(--live-soft); }
-.li small { color: var(--faint); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; display: block; }
-.empty-r { text-align: center; color: var(--muted); padding: 30px 10px; }
+body { font-size: 14px; }
+.r { max-width: 520px; margin: 0 auto; padding-bottom: 20px; }
+.now { background: var(--panel); border: 1px solid var(--line-2); padding: 8px; min-height: 110px; margin: 8px; }
+.now .tx { font-size: 18px; font-weight: bold; margin-top: 6px; white-space: pre-line; }
+.now .lb { color: var(--live); font-weight: bold; font-size: 12px; margin-top: 6px; }
+.nav { display: grid; grid-template-columns: 1fr 1.5fr; gap: 6px; margin: 8px; }
+.nav .btn { height: 60px; font-size: 18px; }
+.ctrls { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin: 0 8px; }
+.ctrls .btn { height: 40px; font-size: 12px; white-space: normal; }
+.tabs { margin: 12px 8px 6px; }
+.list { padding: 0 8px; }
+.list table.list { table-layout: fixed; }
+.list table.list td.n { width: 34px; }
+.list table.list td { padding: 8px 6px; font-size: 13px; cursor: pointer; }
+.list table.list tr.on td { background: #ffd9d9; color: #000; font-weight: bold; }
+.dot { display: inline-block; width: 8px; height: 8px; border: 1px solid #000; background: #999; }
+.dot.on { background: #00aa00; }
 </style>
 </head>
 <body>
