@@ -2,7 +2,7 @@
   "name": "Vespa",
   "short_name": "Vespa",
   "description": "Free church presentation software",
-  "start_url": "app.html",
+  "start_url": "projector.html",
   "display": "standalone",
   "background_color": "#0c0c0f",
   "theme_color": "#5b4cf0",
