@@ -1,2 +1,2 @@
 # vesperpresent.github.io
-Church presentation software 
+Church presentation software (:
